@@ -25,6 +25,28 @@ To develop a predictive model that helps a Portuguese banking institution determ
 - Poutcome : Outcome of the previous marketing campaign (categorical: failure, nonexistent, success)
 - Y : Has the client subscribed a term deposit? Yes or No
 
-## Process Flow
+## Process
+### Data Preprocessing 
+Performing data inspection and cleaning, including understanding data characteristics, checking for missing values, duplicate data, and identifying imbalanced classes.
+### Feature Engineering 
+Feature engineering transforms raw data into meaningful representations that enhance model performance. The following techniques are applied:
+   - **Handling outlier (IQR)**. These methods are more robust against outliers because they can adapt well to non-normal data distributions. Handling outliers helps balance the data and prevents model bias.
+   - **Feature transformation (Label encoder)**. Label encoding is used to convert categorical features into numerical values so they can be processed by machine learning models. 
+   - **Data augmentation (ADASYN)**. ADASYN is used to address class imbalance by generating synthetic samples adaptively, adding more synthetic samples to the minority class, and reducing bias toward the majority class.
+   - **Feature scaling (Robust Scaler)**. Robust Scaler is used to normalize features while minimizing the influence of outliers by utilizing the median and IQR, making it more resistant to extreme values.
+### Model Selection 
+Model selection is carried out by testing several ensemble models such as Random Forest, Gradient Boosting, LightGBM, AdaBoost, CatBoost, and XGBoost because they are more robust to different data conditions, handle non-linearity well, and improve predictive performance by combining multiple weak learners into a strong model.
+### Feature Selection 
+Performed using Recursive Feature Elimination with Cross-Validation (RFECV), which iteratively removes less important features to enhance model interpretability, retains only the most relevant features to reduce complexity and improve efficiency, and prevents overfitting by eliminating redundant or irrelevant features.
+### Cross Validation & Hyperparameter Tuning 
+Cross-validation ensures the model is evaluated on different data subsets to reduce overfitting risk, while hyperparameter tuning with Optuna, using Bayesian optimization and the Tree-structured Parzen Estimator (TPE), efficiently automates model selection and finds optimal settings to maximize accuracy and minimize overfitting.
 
 ## Prediction Results
+The CatBoost model achieved excellent performance on the bank subscription deposit dataset with the following metrics:
+- Accuracy: 93.56% – indicating a high proportion of correctly classified instances.
+- F1 Score: 93.62% – showing a strong balance between precision and recall.
+- Precision: 92.74% – meaning that 92.74% of predicted positives are actual positives.
+- Recall: 94.52% – indicating that 94.52% of actual positives were correctly identified.
+- AUC-ROC: 0.9828 – demonstrating excellent discriminatory power between classes.
+
+The CatBoost model effectively handles categorical features and delivers a highly accurate and well-balanced classification for predicting bank subscription deposits. The AUC-ROC of 0.9828 further confirms that the model has strong predictive capability and can confidently differentiate between subscribed and non-subscribed customers.
